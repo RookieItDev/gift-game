@@ -1,0 +1,94 @@
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(139, 92, 246, 0.5);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.list-item-anim {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Disco Spotlight Effect */
+@keyframes spotlight-rotate {
+    0% {
+        transform: rotate(0deg) scale(1.5);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1.5);
+    }
+}
+
+/* Container for the effect */
+.disco-bg-active {
+    /* No background color here, relying on blend mode of the container in HTML */
+    overflow: hidden;
+}
+
+/* Use pseudo-elements for the rotating light beams */
+.disco-bg-active::before,
+.disco-bg-active::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    /* Soft blending to look like light beams */
+    mix-blend-mode: plus-lighter;
+}
+
+/* Beam Layer 1: White/Blue/Pink Beams (Clockwise) */
+.disco-bg-active::before {
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            rgba(255, 255, 255, 0.8) 15deg,
+            transparent 30deg,
+            transparent 120deg,
+            rgba(0, 255, 255, 0.8) 135deg,
+            transparent 150deg,
+            transparent 240deg,
+            rgba(255, 0, 255, 0.8) 255deg,
+            transparent 270deg);
+    animation: spotlight-rotate 4s linear infinite;
+    filter: blur(2px);
+    /* Slight blur for softness */
+}
+
+/* Beam Layer 2: Gold/Cyan Beams (Counter-Clockwise) */
+.disco-bg-active::after {
+    background: conic-gradient(from 180deg,
+            transparent 0deg,
+            rgba(255, 215, 0, 0.8) 20deg,
+            transparent 40deg,
+            transparent 180deg,
+            rgba(0, 255, 255, 0.8) 200deg,
+            transparent 220deg);
+    animation: spotlight-rotate 7s linear infinite reverse;
+    filter: blur(2px);
+}
